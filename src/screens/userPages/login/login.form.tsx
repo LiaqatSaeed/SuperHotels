@@ -10,4 +10,4 @@ const LoginForm = (props: ILoginFormProps) => {
 
     );
 }
-
+export default withFormik(LoginForm)

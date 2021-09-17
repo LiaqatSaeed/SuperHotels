@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.icon-container {
+  width: 30px;
+  height: 30px;
+  padding: 7px;
+  justify-content: center;
+  display: flex;
+  background: white;
+  box-shadow: 2px 2px #00000099;
+  align-items: center;
+  border-radius: 40px;
+  position: absolute;
+  cursor: pointer;
+}
+.icon-right {
+  right: 0;
+  box-shadow: -2px 2px #00000099;
+}

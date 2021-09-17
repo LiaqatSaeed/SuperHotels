@@ -11,21 +11,28 @@ export interface IAuthProps {
     token?: string,
     isLoggedIn?: boolean,
     children?: ReactNode,
-    onLogin?: () => void
+    onLogin?: (props: any) => void,
+    onLogout?: (props: any) => void
+
 }
 
-const AuthContext = createContext<IAuthProps>({ isLoggedIn: false });
+const AuthContext = createContext<IAuthProps>({});
 export const useAuth = () => useContext(AuthContext);
 
 export function Auth({ children }: IAuthProps) {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-    const onLogin = () => {
+    const onLogin = ({ logMeIn }: any) => {
+        setIsLoggedIn(logMeIn)
 
+
+    }
+    const onLogout = ({ logMeOut }: any) => {
+        setIsLoggedIn(logMeOut)
     }
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, onLogin, } as IAuthProps}>
+        <AuthContext.Provider value={{ isLoggedIn, onLogin, onLogout } as IAuthProps}>
             {children}
         </AuthContext.Provider>
     );

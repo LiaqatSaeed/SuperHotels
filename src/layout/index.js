@@ -9,14 +9,14 @@ import {
   NavbarBrand,
   NavbarToggler,
   NavItem,
-  NavLink,
+  Button,
   UncontrolledDropdown,
 } from "reactstrap";
 import { useAuth } from "../context/auth.context";
 
 const Navigation = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, onLogin, onLogout } = useAuth();
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -35,12 +35,20 @@ const Navigation = (props) => {
                 <DropdownItem>Option 1</DropdownItem>
                 <DropdownItem>Option 2</DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem>Reset</DropdownItem>
+                <DropdownItem onClick={() => onLogout({ logMeOut: false })}>
+                  Logout
+                </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           ) : (
             <NavItem>
-              <NavLink href="/components/">Login</NavLink>
+              <Button
+                color="primary"
+                size="sm"
+                onClick={() => onLogin({ logMeIn: true })}
+              >
+                Login <i class="fas fa-sign-out-alt"></i>
+              </Button>
             </NavItem>
           )}
         </Nav>
