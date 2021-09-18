@@ -3,7 +3,7 @@ import AuthAPI from "../lib/api/users";
 import Toaster from "../components/toaster";
 import isEmpty from "lodash/isEmpty";
 import { addItem, clearItem, getContext } from "../lib/helpers/localstorage";
-const APP_AUTH_KEY = "@app_auth"
+
 
 export interface IUserProps {
     name?: string;
@@ -25,8 +25,8 @@ const AuthContext = createContext<IAuthProps>({});
 export const useAuth = () => useContext(AuthContext);
 
 export function Auth({ children }: IAuthProps) {
-    const [isLoggedIn, setIsLoggedIn] = useState(!isEmpty(getContext(APP_AUTH_KEY)));
-    const [context, setContext] = useState(getContext(APP_AUTH_KEY));
+    const [isLoggedIn, setIsLoggedIn] = useState(!isEmpty(getContext()));
+    const [context, setContext] = useState(getContext());
 
 
     const handleResponse = ({ error = "", data = {}, message = "" }) => {
@@ -34,8 +34,8 @@ export function Auth({ children }: IAuthProps) {
             Toaster(error, "error");
             return { error };
         } else {
-            addItem(APP_AUTH_KEY, data);
-            setContext(getContext(APP_AUTH_KEY))
+            addItem(data);
+            setContext(getContext())
             setIsLoggedIn(true);
             Toaster(message, "success");
             return { data };
@@ -53,7 +53,7 @@ export function Auth({ children }: IAuthProps) {
     };
 
     const onLogout = ({ logMeOut }: any) => {
-        clearItem(APP_AUTH_KEY)
+        clearItem()
         setContext({})
         setIsLoggedIn(false);
     };

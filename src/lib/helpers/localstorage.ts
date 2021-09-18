@@ -1,23 +1,26 @@
-export const addItem = (key: string, value: any) => {
-  if (key) localStorage.setItem(key, JSON.stringify(value));
+export const APP_AUTH_KEY = "@app_auth";
+
+export const addItem = (value: any) => {
+  localStorage.setItem(APP_AUTH_KEY, JSON.stringify(value));
 };
 
-export const getContext = (key: string) => {
-  return JSON.parse(getTokenItem(key) || "{}").context;
+export const getContext = () => {
+  return JSON.parse(getItem() || "{}").context;
 };
 
-export const clearItem = (key: any) => {
-  localStorage.removeItem(key);
+export const clearItem = () => {
+  localStorage.removeItem(APP_AUTH_KEY);
 };
 
-export const getTokenItem = (key: any) => {
-  return localStorage.getItem(key);
+export const getItem = () => {
+  return localStorage.getItem(APP_AUTH_KEY);
 };
 
-export const getToken = (key: string) => {
-  const data = getTokenItem(key);
+export const getToken = () => {
+  const data = getItem();
   if (data) {
-    return JSON.parse(getTokenItem(key) || "{}").token;
+    let token = JSON.parse(data || "{}").token;
+    return `bearer ${token}`;
   }
   return null;
 };

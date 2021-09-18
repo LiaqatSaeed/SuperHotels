@@ -58,16 +58,15 @@ class BaseEpic {
         dispatch
       );
 
-    const removeSelected =
-      (selected_ids: any, queryParams: any) => async (dispatch: any) =>
-        this.makeCall(
-          API.remove,
-          { selected_ids, queryParams },
-          DeleteSelectedBegin,
-          DeleteSelectedSuccess,
-          DeleteSelectedFailure,
-          dispatch
-        );
+    const removeSelected = (id: any) => async (dispatch: any) =>
+      this.makeCall(
+        API.remove,
+        { id },
+        DeleteSelectedBegin,
+        DeleteSelectedSuccess,
+        DeleteSelectedFailure,
+        dispatch
+      );
 
     const search = (params: any) => async (dispatch: any) =>
       this.makeCall(
@@ -99,7 +98,7 @@ class BaseEpic {
   ) {
     try {
       dispatch(onBegin(functionParams));
-
+      debugger;
       const response = await apiCallFunction({ ...functionParams });
 
       if (response.error) {

@@ -4,11 +4,14 @@ import { useAuth } from "../context/auth.context";
 import colors from "../theme/colors.json";
 
 export interface IHotelProps {
+    _id: string,
     name: string;
     location: string;
+    onEdit?: () => any;
+    onDelete?: () => any
 }
 
-const HotelCard = ({ name, location }: IHotelProps) => {
+const HotelCard = ({ name, location, onEdit, onDelete }: IHotelProps) => {
     const { isLoggedIn } = useAuth();
     return (
         <Card className="mb-5">
@@ -30,7 +33,7 @@ const HotelCard = ({ name, location }: IHotelProps) => {
             {
                 isLoggedIn && (
                     <>
-                        <span className="icon-container">
+                        <span className="icon-container cursor-pointer" onClick={onEdit}>
                             <svg
                                 viewBox="0 0 512.001 512.001"
                                 fill="#0d6efd"
@@ -46,7 +49,7 @@ const HotelCard = ({ name, location }: IHotelProps) => {
                                 </g>
                             </svg>
                         </span>
-                        <span className="icon-container icon-right">
+                        <span className="icon-container icon-right cursor-pointer" onClick={onDelete}>
                             <svg
                                 viewBox="0 0 512 512"
                                 fill={colors.errorRed}

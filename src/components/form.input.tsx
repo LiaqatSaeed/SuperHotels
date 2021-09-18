@@ -22,7 +22,7 @@ export function FormInput({
     ...rest
 }: IFormInputProps & FieldProps) {
     const invalid = !isNil(getIn(touched, name) && getIn(errors, name));
-    debugger
+
     return (
         <FormGroup>
             <Label className="text-start w-100" for={name}>{label}</Label>

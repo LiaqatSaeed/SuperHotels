@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalProps } from 'reactstrap';
 
 export interface IGModelProps {
     title: string;
@@ -8,9 +8,9 @@ export interface IGModelProps {
     toggle: (item: any) => void
 }
 
-export function GModel({ isOpen, title, children, toggle }: IGModelProps) {
+export function GModel({ isOpen, title, children, toggle, backdrop }: IGModelProps & ModalProps) {
     return (
-        <Modal isOpen={isOpen} toggle={toggle} >
+        <Modal backdrop={backdrop} isOpen={isOpen} toggle={toggle} >
             <ModalHeader toggle={toggle}>{title}</ModalHeader>
             <ModalBody>
                 {children}

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import isEmpty from "lodash/isEmpty"
 import Toaster from "./toaster"
 import isNull from "lodash/isNull"
+import { withRouter } from 'react-router';
 // First we need to add a type to let us extend the incoming component.
 
 
@@ -32,11 +33,11 @@ export function withAPI<P>(WrappedComponent: React.FC<P>) {
         };
 
 
-        const getItem = (id: any) => {
+        const getItem = async (id: any) => {
             turnOnLoading();
-            get(id).then((res: any) => {
-                turnOffLoading();
-            });
+            let res = await get(id);
+            turnOffLoading();
+            return res;
         };
 
         const getIndex = (params = {}) => {
@@ -62,8 +63,8 @@ export function withAPI<P>(WrappedComponent: React.FC<P>) {
 
         const handleResponse = ({ res, isSinglePage }: any) => {
             const { data = {}, meta = {} } = res;
-            let { message } = meta;
-            let { error } = data;
+            let { message = "" } = meta;
+            let { error = "" } = data;
 
             if (!isEmpty(error)) {
                 Toaster(error, "error");
@@ -72,20 +73,23 @@ export function withAPI<P>(WrappedComponent: React.FC<P>) {
                 Toaster(message, "success");
                 turnOffSubmitting();
             }
+            return {
+                error, data
+            }
         };
 
-        const onSubmitItem = (params: any) => {
-            const { _id } = params;
-
+        const onSubmitItem = async (params: any) => {
+            const { _id, ...rest } = params;
+            debugger
             turnOnSubmitting();
             if (!isEmpty(_id) && !isNull(_id)) {
-                update(_id, params).then((res: any) => {
-                    handleResponse({ res });
-                });
+                let res = await update(_id, params);
+                debugger
+                return handleResponse({ res });
             } else {
-                create(params).then((res: any) => {
-                    handleResponse({ res });
-                });
+                let res = await create(rest);
+                debugger
+                return handleResponse({ res });
             }
         };
 
@@ -103,5 +107,5 @@ export function withAPI<P>(WrappedComponent: React.FC<P>) {
                 turnOffLoading={turnOffLoading} />
         );
     };
-    return FormikBase;
+    return withRouter(FormikBase);
 }

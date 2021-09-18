@@ -1,6 +1,6 @@
 import { CreateModuleActions } from "../BaseActions";
 
-export const BASE = "USER";
+export const BASE = "HOTEL";
 
 export const {
   BEGIN,

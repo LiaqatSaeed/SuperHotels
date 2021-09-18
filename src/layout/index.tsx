@@ -23,16 +23,13 @@ const Navigation = (props: any) => {
 
   const { isLoggedIn, onLogout, context } = useAuth();
 
-  const toggle = () => {
-    if (!isLoggedIn) {
-    }
-  };
+
 
   return (
     <>
       <Navbar color="light" light expand="md">
         <NavbarBrand href="/">Super Hotels</NavbarBrand>
-        <NavbarToggler onClick={toggle} />
+        <NavbarToggler />
         <Collapse navbar className="justify-content-end">
           <Nav className="mr-auto justify-content-end" navbar>
             {isLoggedIn ? (

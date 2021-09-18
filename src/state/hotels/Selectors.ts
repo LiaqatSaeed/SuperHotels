@@ -1,4 +1,4 @@
 import { CreateModuleSelectors } from "../BaseSelector";
-const baseKey = "User";
+const baseKey = "Hotel";
 
 export const { selectList, selectItem } = CreateModuleSelectors(baseKey);

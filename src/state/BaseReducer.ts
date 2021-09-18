@@ -100,7 +100,11 @@ export const CreateModuleReducers = (BASE: any, callBackReducers = null) => {
         return { ...state, error: action };
 
       case CREATE_SUCCESS:
-        return { ...state, item: action.data };
+        return {
+          ...state,
+          item: action.data,
+          list: [...state.list, action.data],
+        };
 
       case UPDATE_SUCCESS:
         return { ...state, item: action.data };

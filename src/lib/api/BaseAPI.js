@@ -22,9 +22,8 @@ export const makeQueryString = (params) => {
 };
 
 class API {
-  constructor({ uri, delete_uri, search_uri, multiple_ids, object_key }) {
+  constructor({ uri, search_uri, multiple_ids, object_key }) {
     this.uri = uri;
-    this.delete_uri = delete_uri;
     this.search_uri = search_uri;
     this.multiple_ids = multiple_ids;
     this.object_key = object_key;
@@ -52,8 +51,7 @@ class API {
   update = ({ id, params, locale }) =>
     PutSecured(`/${this.uri}/id/${id}`, { [this.object_key]: params });
 
-  remove = ({ selected_ids }) =>
-    DeleteSecured(`/${this.uri}/id/${selected_ids[0]}`);
+  remove = ({ id }) => DeleteSecured(`/${this.uri}/id/${id}`);
 
   removeMultiple = ({ selected_ids }) => {
     return DeleteSecured(

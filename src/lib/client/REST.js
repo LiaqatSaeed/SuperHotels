@@ -1,12 +1,5 @@
+import { getToken } from "../helpers/localstorage";
 const DomainURL = "http://localhost:5000/api";
-
-export const getToken = async () => {
-  const data = localStorage.getItem("token");
-  if (data) {
-    return `bearer ${JSON.parse(data).token}`;
-  }
-  return null;
-};
 
 //region Fetch Mechanism
 export const GetSecured = async (URL) => {
