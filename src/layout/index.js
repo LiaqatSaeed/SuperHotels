@@ -53,7 +53,7 @@ const Navigation = (props) => {
               <>
                 <NavItem>
                   <NavbarText
-                    className="m-3"
+                    className="m-3 cursor-pointer"
                     onClick={() => setShowLogin(true)}
                   >
                     Login
@@ -72,8 +72,22 @@ const Navigation = (props) => {
             )}
           </Nav>
         </Collapse>
-        <Login toggle={() => setShowLogin(false)} isOpen={showLogin} />
-        <Register toggle={() => setShowRegister(false)} isOpen={showRegister} />
+        <Login
+          toggle={() => setShowLogin(false)}
+          isOpen={showLogin}
+          openRegister={() => {
+            setShowLogin(false);
+            setShowRegister(true);
+          }}
+        />
+        <Register
+          toggle={() => setShowRegister(false)}
+          isOpen={showRegister}
+          openLogin={() => {
+            setShowRegister(false);
+            setShowLogin(true);
+          }}
+        />
       </Navbar>
     </>
   );

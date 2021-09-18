@@ -9,9 +9,10 @@ export interface ILoginProps {
     name?: string
     isOpen: boolean
     toggle: () => void
+    openRegister: () => void
 }
 
-const Login = ({ isOpen, toggle }: ILoginProps) => {
+const Login = ({ isOpen, toggle, openRegister }: ILoginProps) => {
     return (
         <GModel title="Login" isOpen={isOpen} toggle={toggle}>
             <LoginForm initialValues={initialValues} validationSchema={schema} onSubmit={(values) => {
@@ -19,7 +20,7 @@ const Login = ({ isOpen, toggle }: ILoginProps) => {
                 toggle()
             }} />
             <hr />
-            <span>Don't Have an Account? <span className="text-primary">Register</span></span>
+            <span>Don't Have an Account? <span className="text-primary cursor-pointer" onClick={openRegister}>Register</span></span>
         </GModel>
     );
 }

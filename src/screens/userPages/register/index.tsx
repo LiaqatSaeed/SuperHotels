@@ -8,9 +8,10 @@ export interface IRegisterProps {
     name?: string
     isOpen: boolean
     toggle: () => void
+    openLogin: () => void
 }
 
-const Register = ({ isOpen, toggle }: IRegisterProps) => {
+const Register = ({ isOpen, toggle, openLogin }: IRegisterProps) => {
     return (
         <GModel title="Login" isOpen={isOpen} toggle={toggle}>
             <RegisterForm initialValues={initialValues} validationSchema={schema} onSubmit={(values: any) => {
@@ -18,7 +19,7 @@ const Register = ({ isOpen, toggle }: IRegisterProps) => {
                 toggle()
             }} />
             <hr />
-            <span>Already Have an Account! <span className="text-primary">Login</span></span>
+            <span>Already Have an Account! <span className="text-primary cursor-pointer" onClick={openLogin}>Login</span></span>
         </GModel>
     );
 }
