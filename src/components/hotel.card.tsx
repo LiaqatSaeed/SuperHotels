@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Card, CardBody, CardImg, CardText, CardTitle } from "reactstrap";
 import { useAuth } from "../context/auth.context";
+import colors from "../theme/colors.json";
 
 export interface IHotelProps {
     name: string;
@@ -48,7 +49,7 @@ const HotelCard = ({ name, location }: IHotelProps) => {
                         <span className="icon-container icon-right">
                             <svg
                                 viewBox="0 0 512 512"
-                                fill="#dc3545"
+                                fill={colors.errorRed}
                             >
                                 <g>
                                     <path d="m442.154 145c10.585 0 17.924-10.701 13.955-20.514-14.093-34.841-48.275-59.486-88.109-59.486h-18.414c-6.867-36.273-38.67-65-77.586-65h-32c-38.891 0-70.715 28.708-77.586 65h-18.414c-39.834 0-74.016 24.645-88.109 59.486-3.969 9.813 3.37 20.514 13.955 20.514zm-202.154-115h32c21.9 0 40.49 14.734 46.748 35h-125.496c6.258-20.266 24.848-35 46.748-35z" />

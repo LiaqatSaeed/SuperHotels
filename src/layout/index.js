@@ -10,50 +10,72 @@ import {
   NavbarToggler,
   NavItem,
   Button,
+  NavbarText,
   UncontrolledDropdown,
 } from "reactstrap";
 import { useAuth } from "../context/auth.context";
+import Login from "../screens/userPages/login";
+import Register from "../screens/userPages/register";
 
 const Navigation = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { isLoggedIn, onLogin, onLogout } = useAuth();
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
 
-  const toggle = () => setIsOpen(!isOpen);
+  const { isLoggedIn, onLogout } = useAuth();
+
+  const toggle = () => {
+    if (!isLoggedIn) {
+    }
+  };
 
   return (
-    <Navbar color="light" light expand="md">
-      <NavbarBrand href="/">Super Hotels</NavbarBrand>
-      <NavbarToggler onClick={toggle} />
-      <Collapse isOpen={isOpen} navbar className="justify-content-end">
-        <Nav className="mr-auto justify-content-end" navbar>
-          {isLoggedIn ? (
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Liaqat Saeed
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem onClick={() => onLogout({ logMeOut: false })}>
-                  Logout
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          ) : (
-            <NavItem>
-              <Button
-                color="primary"
-                size="sm"
-                onClick={() => onLogin({ logMeIn: true })}
-              >
-                Login <i class="fas fa-sign-out-alt"></i>
-              </Button>
-            </NavItem>
-          )}
-        </Nav>
-      </Collapse>
-    </Navbar>
+    <>
+      <Navbar color="light" light expand="md">
+        <NavbarBrand href="/">Super Hotels</NavbarBrand>
+        <NavbarToggler onClick={toggle} />
+        <Collapse navbar className="justify-content-end">
+          <Nav className="mr-auto justify-content-end" navbar>
+            {isLoggedIn ? (
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Liaqat Saeed
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem>Option 1</DropdownItem>
+                  <DropdownItem>Option 2</DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem onClick={() => onLogout({ logMeOut: false })}>
+                    Logout
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            ) : (
+              <>
+                <NavItem>
+                  <NavbarText
+                    className="m-3"
+                    onClick={() => setShowLogin(true)}
+                  >
+                    Login
+                  </NavbarText>
+                </NavItem>
+                <NavItem>
+                  <Button
+                    color="primary"
+                    size="sm"
+                    onClick={() => setShowRegister(true)}
+                  >
+                    Sign Up <i class="fas fa-sign-out-alt"></i>
+                  </Button>
+                </NavItem>
+              </>
+            )}
+          </Nav>
+        </Collapse>
+        <Login toggle={() => setShowLogin(false)} isOpen={showLogin} />
+        <Register toggle={() => setShowRegister(false)} isOpen={showRegister} />
+      </Navbar>
+    </>
   );
 };
 

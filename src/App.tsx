@@ -11,7 +11,6 @@ function App() {
       <Container className="App">
         <Navigation />
         <Hotels />
-
       </Container>
     </Auth>
   );

@@ -1,19 +1,41 @@
-import * as React from 'react';
-import { FormFeedback, FormGroup, FormText, Input, Label } from 'reactstrap';
+import * as React from "react";
+import { FormGroup, Input, Label } from "reactstrap";
+import { FieldProps, getIn } from "formik";
+import ErrorMessage from "./form.feedback";
+import isEmpty from "lodash/isEmpty";
+import { isNil } from "lodash";
 
-export interface IAppProps {
-    name: string,
-    label?: string,
-
+export interface IFormInputProps {
+    placeholder?: string;
+    label?: string;
 }
 
-export function App(props: IAppProps) {
+export function FormInput({
+    label,
+    placeholder,
+    field: { name, value },
+    form: {
+        errors,
+        touched,
+        setFieldValue
+    },
+    ...rest
+}: IFormInputProps & FieldProps) {
+    const invalid = !isNil(getIn(touched, name) && getIn(errors, name));
+    debugger
     return (
         <FormGroup>
-            <Label for="exampleEmail">Input without validation</Label>
-            <Input />
-            <FormFeedback>You will not be able to see this</FormFeedback>
-            <FormText>Example help text that remains unchanged.</FormText>
+            <Label for={name}>{label}</Label>
+            <Input
+                invalid={invalid}
+                valid={!invalid && !isEmpty(value)}
+                name={name}
+                id={name}
+                value={value}
+                onChange={(e) => setFieldValue(name, e.target.value)}
+                {...rest}
+            />
+            <ErrorMessage touched={touched} errors={errors} name={name} />
         </FormGroup>
     );
 }

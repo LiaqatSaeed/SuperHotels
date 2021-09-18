@@ -1,6 +1,6 @@
 import * as React from "react";
 import HotelCard, { IHotelProps } from "../../components/hotel.card";
-import { Row, Col } from "reactstrap";
+import { Row, Col, Button } from "reactstrap";
 import map from "lodash/map";
 
 export interface IHotelListProps {
@@ -35,8 +35,8 @@ const data = [
 
 export function Hotels(props: IHotelListProps) {
   return (
-    <div>
-      <h2>Most Popular Hotels</h2>
+    <div className="mt-5">
+      <h2 className="text-start">Most Popular Hotels <Button size="sm" className="float-end">Add Hotel</Button></h2>
       <Row>
         {map(data, ({ name, location }: IHotelProps) => (
           <Col md={4} lg={3}>
