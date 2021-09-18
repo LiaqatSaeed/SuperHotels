@@ -1,6 +1,6 @@
 import API from "./BaseAPI";
 
-import { PutSecured, Post, PostSecured } from "../client/REST";
+import { Post } from "../client/REST";
 
 const uri = "users";
 const delete_uri = "delete_users";
@@ -16,12 +16,12 @@ const BaseAPI = new API({
   object_key,
 });
 
-export default {
+const AuthAPI = {
   ...BaseAPI,
-  signIn: (params: any) => Post(`/login`, params),
+  signIn: (params: any) => Post(`/login`, { user: params }),
   signUp: (params: any) => {
     return Post(`/register`, { user: params });
   },
-  registerDevice: (id: any, params: any) =>
-    PostSecured(`/${uri}/register_device`, { token: params }),
 };
+
+export default AuthAPI;

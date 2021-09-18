@@ -3,6 +3,8 @@ import { initialValues } from './initial.values';
 import schema from './schema.yup';
 import { GModel } from "../../../components/gmodel"
 import RegisterForm from './register.form';
+import { useAuth } from '../../../context/auth.context';
+import isEmpty from 'lodash/isEmpty';
 
 export interface IRegisterProps {
     name?: string
@@ -12,9 +14,15 @@ export interface IRegisterProps {
 }
 
 const Register = ({ isOpen, toggle, openLogin }: IRegisterProps) => {
+    const { onSignUp } = useAuth()
     return (
-        <GModel title="Login" isOpen={isOpen} toggle={toggle}>
+        <GModel title="Create Account" isOpen={isOpen} toggle={toggle}>
             <RegisterForm initialValues={initialValues} validationSchema={schema} onSubmit={(values: any) => {
+                onSignUp && onSignUp(values).then(({ error }) => {
+                    if (isEmpty(error)) {
+                        toggle()
+                    }
+                })
                 console.log(values)
                 toggle()
             }} />

@@ -1,13 +1,12 @@
 
 import React, { useState } from 'react';
-import { ToastContainer } from "react-toastify";
 import isEmpty from "lodash/isEmpty"
 import Toaster from "./toaster"
 import isNull from "lodash/isNull"
 // First we need to add a type to let us extend the incoming component.
 
 
-export function withFormik<P>(WrappedComponent: React.FC<P>) {
+export function withAPI<P>(WrappedComponent: React.FC<P>) {
     const FormikBase = ({ get, getList, onSubmit, create, update, match: { path }, history, ...rest }: any) => {
         const [isLoading, setIsLoading] = useState(false);
         const [isSubmitting, setIsSubmitting] = useState(false)
@@ -93,18 +92,15 @@ export function withFormik<P>(WrappedComponent: React.FC<P>) {
 
 
         return (
-            <>
-                <WrappedComponent {...rest} isLoading={isLoading}
-                    isSubmitting={isSubmitting}
-                    navigateTo={navigateTo}
-                    getIndex={getIndex}
-                    getItem={getItem}
-                    onEditItem={onEditItem}
-                    onSubmitItem={onSubmitItem}
-                    turnOnLoading={turnOnLoading}
-                    turnOffLoading={turnOffLoading} />
-                <ToastContainer />
-            </>
+            <WrappedComponent {...rest} isLoading={isLoading}
+                isSubmitting={isSubmitting}
+                navigateTo={navigateTo}
+                getIndex={getIndex}
+                getItem={getItem}
+                onEditItem={onEditItem}
+                onSubmitItem={onSubmitItem}
+                turnOnLoading={turnOnLoading}
+                turnOffLoading={turnOffLoading} />
         );
     };
     return FormikBase;

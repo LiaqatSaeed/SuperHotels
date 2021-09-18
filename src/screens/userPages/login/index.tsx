@@ -1,8 +1,10 @@
 import React from 'react';
-import LoginForm from './login.form';
+import { GModel } from "../../../components/gmodel";
+import { useAuth } from '../../../context/auth.context';
 import { initialValues } from './initial.values';
+import LoginForm from './login.form';
 import schema from './schema.yup';
-import { GModel } from "../../../components/gmodel"
+import isEmpty from 'lodash/isEmpty';
 
 
 export interface ILoginProps {
@@ -13,11 +15,16 @@ export interface ILoginProps {
 }
 
 const Login = ({ isOpen, toggle, openRegister }: ILoginProps) => {
+    const { onLogin } = useAuth()
     return (
         <GModel title="Login" isOpen={isOpen} toggle={toggle}>
             <LoginForm initialValues={initialValues} validationSchema={schema} onSubmit={(values) => {
-                console.log(values)
-                toggle()
+                onLogin && onLogin(values).then(({ error = "" }) => {
+                    if (isEmpty(error)) {
+                        toggle()
+                    }
+                })
+
             }} />
             <hr />
             <span>Don't Have an Account? <span className="text-primary cursor-pointer" onClick={openRegister}>Register</span></span>
@@ -25,4 +32,4 @@ const Login = ({ isOpen, toggle, openRegister }: ILoginProps) => {
     );
 }
 
-export default Login;
+export default Login

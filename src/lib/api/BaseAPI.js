@@ -6,7 +6,7 @@ import {
   PostSecured,
   PutSecured,
   DeleteSecured,
-} from "./../client/REST";
+} from "../client/REST";
 
 export const makeQueryString = (params) => {
   var queryString = "";

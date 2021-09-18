@@ -17,11 +17,11 @@ import { useAuth } from "../context/auth.context";
 import Login from "../screens/userPages/login";
 import Register from "../screens/userPages/register";
 
-const Navigation = (props) => {
+const Navigation = (props: any) => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
-  const { isLoggedIn, onLogout } = useAuth();
+  const { isLoggedIn, onLogout, context } = useAuth();
 
   const toggle = () => {
     if (!isLoggedIn) {
@@ -38,13 +38,13 @@ const Navigation = (props) => {
             {isLoggedIn ? (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Liaqat Saeed
+                  {context && context.name}
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>Option 1</DropdownItem>
                   <DropdownItem>Option 2</DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem onClick={() => onLogout({ logMeOut: false })}>
+                  <DropdownItem onClick={() => onLogout && onLogout({ logMeOut: false })}>
                     Logout
                   </DropdownItem>
                 </DropdownMenu>
@@ -65,7 +65,7 @@ const Navigation = (props) => {
                     size="sm"
                     onClick={() => setShowRegister(true)}
                   >
-                    Sign Up <i class="fas fa-sign-out-alt"></i>
+                    Sign Up <i className="fas fa-sign-out-alt"></i>
                   </Button>
                 </NavItem>
               </>

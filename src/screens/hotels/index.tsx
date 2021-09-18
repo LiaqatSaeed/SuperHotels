@@ -3,6 +3,7 @@ import HotelCard, { IHotelProps } from "../../components/hotel.card";
 import { Row, Col, Button } from "reactstrap";
 import map from "lodash/map";
 import { useAuth } from "../../context/auth.context";
+import { withAPI } from "../../components/base.hoc";
 
 export interface IHotelListProps {
   list?: [IHotelProps];
@@ -34,7 +35,7 @@ const data = [
   },
 ];
 
-export function Hotels(props: IHotelListProps) {
+const Hotels = (props: IHotelListProps) => {
   const { isLoggedIn } = useAuth()
   return (
     <div className="mt-5">
@@ -49,3 +50,6 @@ export function Hotels(props: IHotelListProps) {
     </div >
   );
 }
+
+
+export default withAPI(Hotels)

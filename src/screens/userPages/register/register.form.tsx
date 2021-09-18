@@ -9,6 +9,7 @@ import { FormInput } from '../../../components/form.input';
 const RegisterForm = (props: IRegistrationFormProps) => {
     return (
         <>
+            <Field label="Name" name="name" component={FormInput} />
             <Field label="Email" name="email" component={FormInput} />
             <Field label="Password" name="password" type="password" component={FormInput} />
             <Field label="Confirm Password" name="confirm_password" type="password" component={FormInput} />
