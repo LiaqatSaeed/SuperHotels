@@ -4,7 +4,9 @@ import { Container, } from "reactstrap"
 import Navigation from './layout';
 import { Hotels } from './screens/hotels';
 import { Auth } from './context/auth.context';
-import { BrowserRouter, Route } from "react-router-dom"
+import { BrowserRouter, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from './reducer/configureStore';
 
 function App() {
   return (
@@ -12,7 +14,9 @@ function App() {
       <Container className="App">
         <Navigation />
         <BrowserRouter>
-          <Route exact path="/" component={Hotels} />
+          <Provider store={store}>
+            <Route exact path="/" component={Hotels} />
+          </Provider>
         </BrowserRouter>
       </Container>
     </Auth>
