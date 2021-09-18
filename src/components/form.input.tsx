@@ -25,8 +25,9 @@ export function FormInput({
     debugger
     return (
         <FormGroup>
-            <Label for={name}>{label}</Label>
+            <Label className="text-start w-100" for={name}>{label}</Label>
             <Input
+
                 invalid={invalid}
                 valid={!invalid && !isEmpty(value)}
                 name={name}
