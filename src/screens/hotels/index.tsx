@@ -39,10 +39,12 @@ const Hotels = ({ getIndex, getItem, item, list, onSubmitItem }: IHotelListProps
 
   useEffect(() => {
     getIndex()
+    // eslint-disable-next-line
   }, [])
 
   const handleEdit = (_id: any) => {
     debugger
+    setActiveId(_id)
     getItem(_id).then(() => {
       setIsOpen(true)
     })
@@ -54,9 +56,9 @@ const Hotels = ({ getIndex, getItem, item, list, onSubmitItem }: IHotelListProps
     <div className="mt-5">
       <h2 className="text-start">Most Popular Hotels {isLoggedIn && <Button size="sm" className="float-end" onClick={() => setIsOpen(true)}>Add Hotel</Button>} </h2>
       <Row>
-        {map(list, ({ _id, name, location }: IHotelProps) => (
+        {map(list, ({ _id, name, location, image, updatedAt }: IHotelProps) => (
           <Col md={4} lg={3}>
-            <HotelCard _id={_id} onEdit={() => handleEdit(_id)} name={name} location={location} />
+            <HotelCard _id={_id} name={name} location={location} image={image} updatedAt={updatedAt} onEdit={() => handleEdit(_id)} />
           </Col>
         ))}
       </Row>

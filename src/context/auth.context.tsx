@@ -6,9 +6,11 @@ import { addItem, clearItem, getContext } from "../lib/helpers/localstorage";
 
 
 export interface IUserProps {
+    _id: string;
     name?: string;
     email?: string;
     password?: string;
+    role: string
 }
 
 export interface IAuthProps {
@@ -21,7 +23,7 @@ export interface IAuthProps {
     onSignUp?: (props: any) => Promise<any>;
 }
 
-const AuthContext = createContext<IAuthProps>({});
+export const AuthContext = createContext<IAuthProps>({});
 export const useAuth = () => useContext(AuthContext);
 
 export function Auth({ children }: IAuthProps) {

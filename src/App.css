@@ -58,3 +58,8 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+/* Hotel Card */
+.h-210 {
+  height: 210px !important;
+}

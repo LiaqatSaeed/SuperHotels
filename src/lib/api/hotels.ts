@@ -1,4 +1,5 @@
 import API from "./BaseAPI";
+import { Get } from "../client/REST";
 
 const uri = "hotels";
 const search_uri = "search";
@@ -12,4 +13,9 @@ const BaseAPI = new API({
   object_key,
 });
 
-export default BaseAPI;
+const AuthAPI = {
+  ...BaseAPI,
+  index: (params: any) => Get(`/hotels`),
+};
+
+export default AuthAPI;
