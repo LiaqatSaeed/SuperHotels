@@ -35,7 +35,7 @@ const Navigation = (props: any) => {
               nav
               inNavbar
             >
-              <DropdownToggle nav caret data-testid="username">
+              <DropdownToggle nav caret >
                 {context && context.name}
               </DropdownToggle>
               <DropdownMenu right>

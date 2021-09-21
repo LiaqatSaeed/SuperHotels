@@ -44,3 +44,10 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+# About this Project (Super Hotels)
+
+- [1] `reactstrap` library is used which is  develop on top of bootstrap. Mostly Application Components are composed on `reactstrap` components
+- [2] `react-redux` implemented for application state management.
+- [3] `jwt-decode` library is used to decode token to get user context data

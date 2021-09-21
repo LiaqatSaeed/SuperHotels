@@ -28,7 +28,7 @@ export const useAuth = () => useContext(AuthContext);
 
 export function Auth({ children }: IAuthProps) {
     const [isLoggedIn, setIsLoggedIn] = useState(!isEmpty(getContext()));
-    const [context, setContext] = useState(getContext());
+    const [context, setContext] = useState<IUserProps | any>(getContext());
 
 
     const handleResponse = ({ error = "", data = {}, message = "" }) => {

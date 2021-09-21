@@ -1,3 +1,5 @@
+import jwt_decode from "jwt-decode";
+import { IAuthProps } from "../../context/auth.context";
 export const APP_AUTH_KEY = "@app_auth";
 
 export const addItem = (value: any) => {
@@ -5,7 +7,13 @@ export const addItem = (value: any) => {
 };
 
 export const getContext = () => {
-  return JSON.parse(getItem() || "{}").context;
+  let token = getToken();
+  if (token) {
+    let decoded: IAuthProps = jwt_decode(token);
+
+    return decoded.context;
+  }
+  return null;
 };
 
 export const clearItem = () => {
@@ -20,7 +28,12 @@ export const getToken = () => {
   const data = getItem();
   if (data) {
     let token = JSON.parse(data || "{}").token;
-    return `bearer ${token}`;
+    return token;
   }
   return null;
+};
+
+export const getBearerToken = () => {
+  let token = getToken();
+  return `bearer ${token}`;
 };

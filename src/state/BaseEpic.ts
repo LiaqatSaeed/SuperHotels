@@ -98,7 +98,7 @@ class BaseEpic {
   ) {
     try {
       dispatch(onBegin(functionParams));
-      debugger;
+
       const response = await apiCallFunction({ ...functionParams });
 
       if (response.error) {

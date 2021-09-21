@@ -23,7 +23,6 @@ const Register = ({ isOpen, toggle, openLogin }: IRegisterProps) => {
                         toggle()
                     }
                 })
-                console.log(values)
                 toggle()
             }} />
             <hr />

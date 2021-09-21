@@ -9,7 +9,6 @@ import isEmpty from 'lodash/isEmpty';
 
 
 const HotelForm = ({ values: { _id }, isSubmitting }: any) => {
-    console.log(isSubmitting)
     return (
         <Row>
             <Field label="Name" name="name" component={FormInput} />

@@ -43,7 +43,7 @@ const Hotels = ({ getIndex, getItem, item, list, onSubmitItem }: IHotelListProps
   }, [])
 
   const handleEdit = (_id: any) => {
-    debugger
+
     setActiveId(_id)
     getItem(_id).then(() => {
       setIsOpen(true)
@@ -56,16 +56,16 @@ const Hotels = ({ getIndex, getItem, item, list, onSubmitItem }: IHotelListProps
     <div className="mt-5">
       <h2 className="text-start">Most Popular Hotels {isLoggedIn && <Button size="sm" className="float-end" onClick={() => setIsOpen(true)}>Add Hotel</Button>} </h2>
       <Row>
-        {map(list, ({ _id, name, location, image, updatedAt }: IHotelProps) => (
+        {map(list, ({ _id, name, location, image, updatedAt, createdBy }: IHotelProps) => (
           <Col md={4} lg={3}>
-            <HotelCard _id={_id} name={name} location={location} image={image} updatedAt={updatedAt} onEdit={() => handleEdit(_id)} />
+            <HotelCard _id={_id} name={name} createdBy={createdBy} location={location} image={image} updatedAt={updatedAt} onEdit={() => handleEdit(_id)} />
           </Col>
         ))}
       </Row>
       <GModel backdrop="static" title={`${isEmpty(item) ? "Create" : "Update"} Your Hotel`} isOpen={isOpen} toggle={() => setIsOpen(false)}>
         <HotelForm initialValues={{ ...initialValues, ...item }} onSubmit={(values: any) => {
           onSubmitItem(values).then(({ error }: any) => {
-            debugger;
+
             if (isEmpty(error)) {
               setIsOpen(false)
             }

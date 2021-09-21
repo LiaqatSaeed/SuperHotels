@@ -80,15 +80,15 @@ export function withAPI<P>(WrappedComponent: React.FC<P>) {
 
         const onSubmitItem = async (params: any) => {
             const { _id, ...rest } = params;
-            debugger
+
             turnOnSubmitting();
             if (!isEmpty(_id) && !isNull(_id)) {
                 let res = await update(_id, params);
-                debugger
+
                 return handleResponse({ res });
             } else {
                 let res = await create(rest);
-                debugger
+
                 return handleResponse({ res });
             }
         };

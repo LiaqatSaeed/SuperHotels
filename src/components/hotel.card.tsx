@@ -7,6 +7,7 @@ import colors from "../theme/colors.json";
 export interface IHotelProps {
     _id: string,
     name: string;
+    createdBy: string;
     image: string;
     updatedAt: string
     location: string;
@@ -14,12 +15,12 @@ export interface IHotelProps {
     onDelete?: () => any
 }
 
-const HotelCard = ({ name, _id: cardId, location, image, onEdit, onDelete }: IHotelProps) => {
+const HotelCard = ({ name, _id: cardId, createdBy, location, image, onEdit, onDelete }: IHotelProps) => {
     const { isLoggedIn, context } = useAuth();
 
     const renderAction = () => {
 
-        let permitActionTo = context && ((context._id === cardId) || context.role === "admin")
+        let permitActionTo = context && ((context._id === createdBy) || context.role === "admin")
         return permitActionTo && (
             <>
                 <span className="icon-container cursor-pointer" onClick={onEdit}>
@@ -53,9 +54,9 @@ const HotelCard = ({ name, _id: cardId, location, image, onEdit, onDelete }: IHo
         )
 
     }
-    debugger
+
     return (
-        <Card className="mb-5">
+        <Card key={cardId} className="mb-5">
             <CardImg
                 top
                 className="img-thumbnail h-210"

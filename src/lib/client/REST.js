@@ -1,9 +1,9 @@
-import { getToken } from "../helpers/localstorage";
+import { getBearerToken } from "../helpers/localstorage";
 const DomainURL = "http://localhost:5000/api";
 
 //region Fetch Mechanism
 export const GetSecured = async (URL) => {
-  let token = await getToken();
+  let token = await getBearerToken();
 
   if (token != null) {
     let response = await fetch(`${DomainURL}${URL}`, {
@@ -18,7 +18,7 @@ export const GetSecured = async (URL) => {
 };
 
 export const PostSecured = async (URL, params) => {
-  let token = await getToken();
+  let token = await getBearerToken();
   if (token != null) {
     let response = await fetch(`${DomainURL}${URL}`, {
       headers: {
@@ -34,7 +34,7 @@ export const PostSecured = async (URL, params) => {
 };
 
 export const PutSecured = async (URL, params) => {
-  let token = await getToken();
+  let token = await getBearerToken();
   if (token != null) {
     let response = await fetch(`${DomainURL}${URL}`, {
       headers: {
@@ -50,7 +50,7 @@ export const PutSecured = async (URL, params) => {
 };
 
 export const DeleteSecured = async (URL) => {
-  let token = await getToken();
+  let token = await getBearerToken();
 
   if (token != null) {
     let response = await fetch(`${DomainURL}${URL}`, {
