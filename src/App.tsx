@@ -18,6 +18,7 @@ function App() {
         <BrowserRouter>
           <Provider store={store}>
             <Route exact path="/" component={Hotels} />
+            <Route exact path="/hotels/:name" component={Hotels} />
           </Provider>
         </BrowserRouter>
       </Container>

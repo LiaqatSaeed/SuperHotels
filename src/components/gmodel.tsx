@@ -5,12 +5,13 @@ export interface IGModelProps {
     title: string;
     isOpen: boolean,
     children: React.ReactNode,
+    testId?: string,
     toggle: (item: any) => void
 }
 
-export function GModel({ isOpen, title, children, toggle, backdrop }: IGModelProps & ModalProps) {
+export function GModel({ isOpen, title, testId, children, toggle, backdrop }: IGModelProps & ModalProps) {
     return (
-        <Modal backdrop={backdrop} isOpen={isOpen} toggle={toggle} >
+        <Modal data-testid={testId} backdrop={backdrop} isOpen={isOpen} toggle={toggle} >
             <ModalHeader toggle={toggle}>{title}</ModalHeader>
             <ModalBody>
                 {children}

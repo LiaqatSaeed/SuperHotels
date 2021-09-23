@@ -62,12 +62,12 @@ const Navigation = (props: any) => {
               </NavItem>
               <NavItem>
                 <Button
-                  data-testid="signup"
+                  data-testid="register"
                   color="primary"
                   size="sm"
                   onClick={() => setShowRegister(true)}
                 >
-                  Sign Up <i className="fas fa-sign-out-alt"></i>
+                  Register <i className="fas fa-sign-out-alt"></i>
                 </Button>
               </NavItem>
             </>
@@ -77,7 +77,7 @@ const Navigation = (props: any) => {
       <Login
         toggle={() => setShowLogin(false)}
         isOpen={showLogin}
-        openRegister={() => {
+        openLogin={() => {
           setShowLogin(false);
           setShowRegister(true);
         }}
@@ -85,7 +85,7 @@ const Navigation = (props: any) => {
       <Register
         toggle={() => setShowRegister(false)}
         isOpen={showRegister}
-        openLogin={() => {
+        openRegister={() => {
           setShowRegister(false);
           setShowLogin(true);
         }}

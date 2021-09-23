@@ -1,82 +1,126 @@
-import React, { useState, useEffect } from "react";
-import HotelCard, { IHotelProps } from "../../components/hotel.card";
-import { Row, Col, Button } from "reactstrap";
+import isEmpty from "lodash/isEmpty";
 import map from "lodash/map";
-import { useAuth } from "../../context/auth.context";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { Button, Col, Row } from "reactstrap";
 import { withAPI } from "../../components/base.hoc";
 import { GModel } from "../../components/gmodel";
-import HotelForm from "./form/body";
-import { initialValues } from './form/initial.values';
-import schema from './form/schema.yup';
-import isEmpty from 'lodash/isEmpty';
-
-import { connect } from 'react-redux';
+import HotelCard, { IHotelProps } from "../../components/hotel.card";
+import { useAuth } from "../../context/auth.context";
 import {
+  create,
   get,
   getList,
-  create,
-  update,
   removeSelected,
+  update,
 } from "../../state/hotels/Epic";
+import { selectItem, selectList } from "../../state/hotels/Selectors";
+import HotelForm from "./form/body";
+import { initialValues } from "./form/initial.values";
+import schema from "./form/schema.yup";
+import { useParams } from "react-router";
 
-import {
-  selectItem,
-  selectList
-} from "../../state/hotels/Selectors";
 
 export interface IHotelListProps {
   list?: [IHotelProps];
-  item?: {}
-  onSubmitItem?: any
-  getIndex?: any
-  getItem?: any
+  item?: {};
+  onSubmitItem?: any;
+  getIndex?: any;
+  getItem?: any;
 }
 
-
-const Hotels = ({ getIndex, getItem, item, list, onSubmitItem }: IHotelListProps) => {
+const Hotels = ({
+  getIndex,
+  getItem,
+  item,
+  list,
+  onSubmitItem,
+}: IHotelListProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeId, setActiveId] = useState("");
 
+  const params = useParams();
+  console.log(params, "asfasf");
+
   useEffect(() => {
-    getIndex()
+    getIndex();
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   const handleEdit = (_id: any) => {
-
-    setActiveId(_id)
+    setActiveId(_id);
     getItem(_id).then(() => {
-      setIsOpen(true)
-    })
-  }
+      setIsOpen(true);
+    });
+  };
 
-
-  const { isLoggedIn } = useAuth()
+  const { isLoggedIn } = useAuth();
   return (
     <div className="mt-5">
-      <h2 className="text-start">Most Popular Hotels {isLoggedIn && <Button size="sm" className="float-end" onClick={() => setIsOpen(true)}>Add Hotel</Button>} </h2>
+      <h2 className="text-start">
+        Most Popular Hotels
+        {isLoggedIn && (
+          <Button
+            size="sm"
+            className="float-end"
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          >
+            Add Hotel
+          </Button>
+        )}
+      </h2>
       <Row>
-        {map(list, ({ _id, name, location, image, updatedAt, createdBy }: IHotelProps) => (
-          <Col md={4} lg={3}>
-            <HotelCard _id={_id} name={name} createdBy={createdBy} location={location} image={image} updatedAt={updatedAt} onEdit={() => handleEdit(_id)} />
-          </Col>
-        ))}
+        {map(
+          list,
+          ({
+            _id,
+            name,
+            location,
+            image,
+            updatedAt,
+            createdBy,
+          }: IHotelProps) => (
+            <Col md={4} lg={3}>
+              <HotelCard
+                _id={_id}
+                name={name}
+                createdBy={createdBy}
+                location={location}
+                image={image}
+                updatedAt={updatedAt}
+                onEdit={() => handleEdit(_id)}
+              />
+            </Col>
+          )
+        )}
       </Row>
-      <GModel backdrop="static" title={`${isEmpty(item) ? "Create" : "Update"} Your Hotel`} isOpen={isOpen} toggle={() => setIsOpen(false)}>
-        <HotelForm initialValues={{ ...initialValues, ...item }} onSubmit={(values: any) => {
-          onSubmitItem(values).then(({ error }: any) => {
+      <GModel
+        backdrop="static"
+        title={`${isEmpty(activeId) ? "Create" : "Update"} Your Hotel`}
+        isOpen={isOpen}
+        toggle={() => {
+          setActiveId("")
+          setIsOpen(false)
 
-            if (isEmpty(error)) {
-              setIsOpen(false)
-            }
-
-          })
-        }} validationSchema={schema} />
+        }}
+      >
+        <HotelForm
+          initialValues={isEmpty(activeId) ? initialValues : item}
+          onSubmit={(values: any) => {
+            onSubmitItem(values).then(({ error }: any) => {
+              if (isEmpty(error)) {
+                setIsOpen(false);
+              }
+            });
+          }}
+          validationSchema={schema}
+        />
       </GModel>
     </div>
   );
-}
-
+};
 
 const mapStateToProps = (state: any) => {
   return {
@@ -93,5 +137,4 @@ const mapDispatchToProps = (dispatch: any) => ({
   remove: (id: any) => dispatch(removeSelected(id)),
 });
 
-export default connect(mapStateToProps,
-  mapDispatchToProps)(withAPI(Hotels));
+export default connect(mapStateToProps, mapDispatchToProps)(withAPI(Hotels));

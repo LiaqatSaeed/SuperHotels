@@ -10,13 +10,13 @@ export interface IRegisterProps {
     name?: string
     isOpen: boolean
     toggle: () => void
-    openLogin: () => void
+    openRegister: () => void
 }
 
-const Register = ({ isOpen, toggle, openLogin }: IRegisterProps) => {
+const Register = ({ isOpen, toggle, openRegister }: IRegisterProps) => {
     const { onSignUp } = useAuth()
     return (
-        <GModel title="Create Account" isOpen={isOpen} toggle={toggle}>
+        <GModel testId="register-modal" title="Create Account" isOpen={isOpen} toggle={toggle}>
             <RegisterForm initialValues={initialValues} validationSchema={schema} onSubmit={(values: any) => {
                 onSignUp && onSignUp(values).then(({ error }) => {
                     if (isEmpty(error)) {
@@ -26,7 +26,7 @@ const Register = ({ isOpen, toggle, openLogin }: IRegisterProps) => {
                 toggle()
             }} />
             <hr />
-            <span>Already Have an Account! <span className="text-primary cursor-pointer" onClick={openLogin}>Login</span></span>
+            <span>Already Have an Account! <span className="text-primary cursor-pointer" onClick={openRegister}>Login</span></span>
         </GModel>
     );
 }

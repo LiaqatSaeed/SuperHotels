@@ -11,13 +11,13 @@ export interface ILoginProps {
     name?: string
     isOpen: boolean
     toggle: () => void
-    openRegister: () => void
+    openLogin: () => void
 }
 
-const Login = ({ isOpen, toggle, openRegister }: ILoginProps) => {
+const Login = ({ isOpen, toggle, openLogin }: ILoginProps) => {
     const { onLogin } = useAuth()
     return (
-        <GModel title="Login" isOpen={isOpen} toggle={toggle}>
+        <GModel testId="login-modal" title="Login" isOpen={isOpen} toggle={toggle}>
             <LoginForm initialValues={initialValues} validationSchema={schema} onSubmit={(values) => {
                 onLogin && onLogin(values).then(({ error = "" }) => {
                     if (isEmpty(error)) {
@@ -27,7 +27,7 @@ const Login = ({ isOpen, toggle, openRegister }: ILoginProps) => {
 
             }} />
             <hr />
-            <span>Don't Have an Account? <span className="text-primary cursor-pointer" onClick={openRegister}>Register</span></span>
+            <span>Don't Have an Account? <span className="text-primary cursor-pointer" onClick={openLogin}>Register</span></span>
         </GModel>
     );
 }
